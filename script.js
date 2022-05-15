@@ -32,7 +32,7 @@ const tabuleiro = document.querySelector(".tabuleiro");
     for(let i = 0; i < cartas.length ; i++) {
     tabuleiro.innerHTML += `
         <li class="carta" onclick="virarCarta(this)">
-            <div class="fornt-face face">
+            <div class="fornt-face face js">
                 <img src="imagens/fundo.jpg" class="youtube js">
             </div>
 
@@ -47,16 +47,25 @@ const tabuleiro = document.querySelector(".tabuleiro");
 let primeiracarta = null
 let segundaCarta = null
 let paresVirados = 0
+let comecar = 0
 
 function virarCarta(cartaClicada){
   
+    if(comecar <= 0){
+        if(paresVirados === 0 ){
+            cronometro()
+        }    
+    }
+
+
     if(cartaClicada.classList.contains("virada") || segundaCarta !== null){
         return; 
     }
-
+    
     if(primeiracarta === null){
         primeiracarta = cartaClicada
-        cronometro()
+        comecar++
+        
     } else{
         segundaCarta = cartaClicada
         if(primeiracarta.innerHTML === cartaClicada.innerHTML){
@@ -90,35 +99,35 @@ function comparador() {
 
 
 let contador = 0;
+const tempo = document.getElementById("contador")
 var relogio;
 
 function verificarFIM(){
     if(paresVirados === qtdcartas){   
-        setTimeout(MSGalerta, 900) 
+        setTimeout(MSGalerta, 200) 
         setTimeout(jogarNovamente, 4000)    
         
      }
 }
 
 function cronometro(){
-    relogio = setInterval(function() {
-		document.getElementById("contador").innerHTML = contador++;
-        console.log(contador)
-	}, 1000);
-    
-    
-
+    setInterval(() => {
+        tempo.innerHTML = contador++
+    }, 1000); 
 }
+
 
 function MSGalerta(){
     alert(`voce venceu em ${contador} segundos`)
     clearInterval(relogio)
    
 }
-
+let mensagem
 function jogarNovamente(){
     const mensagem = prompt("quer jogar novamente ?")
     if(mensagem === "sim"){
         document.location.reload(true);
+    }else{
+        clearInterval(relogio)
     }
 }

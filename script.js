@@ -31,17 +31,94 @@ function renderizarCartaNaTela(cartas) {
 const tabuleiro = document.querySelector(".tabuleiro");
     for(let i = 0; i < cartas.length ; i++) {
     tabuleiro.innerHTML += `
-        <li class="carta">
-            <div class="frente">
+        <li class="carta" onclick="virarCarta(this)">
+            <div class="fornt-face face">
                 <img src="imagens/fundo.jpg" class="youtube js">
             </div>
 
-            <div class="verso">
+            <div class="back-face face">
                 <img src="imagens/${cartas[i]}.png" class="js">  
+            
             </div>
         </li>`
     }
 }
+
+let primeiracarta = null
+let segundaCarta = null
+let paresVirados = 0
+
+function virarCarta(cartaClicada){
+  
+    if(cartaClicada.classList.contains("virada") || segundaCarta !== null){
+        return; 
+    }
+
+    if(primeiracarta === null){
+        primeiracarta = cartaClicada
+        cronometro()
+    } else{
+        segundaCarta = cartaClicada
+        if(primeiracarta.innerHTML === cartaClicada.innerHTML){
+           paresVirados += 2
+            resetarJogadas()
+            verificarFIM()
+        }  else{
+                setTimeout(desvirarCarta, 1000)
+                verificarFIM()
+
+        }
+   }
+   cartaClicada.classList.add("virada")
+
+}
+
+function desvirarCarta(){
+    primeiracarta.classList.remove("virada")
+    segundaCarta.classList.remove("virada")
+    resetarJogadas()
+}
+
+function resetarJogadas(){
+    primeiracarta = null
+    segundaCarta = null
+}
+
 function comparador() {
     return Math.random() - 0.5;
+}
+
+
+let contador = 0;
+var relogio;
+
+function verificarFIM(){
+    if(paresVirados === qtdcartas){   
+        setTimeout(MSGalerta, 900) 
+        setTimeout(jogarNovamente, 4000)    
+        
+     }
+}
+
+function cronometro(){
+    relogio = setInterval(function() {
+		document.getElementById("contador").innerHTML = contador++;
+        console.log(contador)
+	}, 1000);
+    
+    
+
+}
+
+function MSGalerta(){
+    alert(`voce venceu em ${contador} segundos`)
+    clearInterval(relogio)
+   
+}
+
+function jogarNovamente(){
+    const mensagem = prompt("quer jogar novamente ?")
+    if(mensagem === "sim"){
+        document.location.reload(true);
+    }
 }

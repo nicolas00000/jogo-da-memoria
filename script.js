@@ -105,7 +105,7 @@ var relogio;
 function verificarFIM(){
     if(paresVirados === qtdcartas){   
         setTimeout(MSGalerta, 200) 
-        setTimeout(jogarNovamente, 4000)    
+        setTimeout(jogarNovamente, 1000)    
         
      }
 }
@@ -122,7 +122,7 @@ function MSGalerta(){
     clearInterval(relogio)
    
 }
-let mensagem
+
 function jogarNovamente(){
     const mensagem = prompt("quer jogar novamente ?")
     if(mensagem === "sim"){

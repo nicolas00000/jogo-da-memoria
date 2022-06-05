@@ -1,5 +1,5 @@
 body{
-    background: #4b9b8c;
+    background: #2f7467;
 }
 
 *{
@@ -44,9 +44,9 @@ h3{
 
 
 .titulo{
-    background-color: gray;
+    
     position: absolute;
-    top:10%;
+    top:0%;
     width: 100%;
     display: flex;
     align-items: center;
@@ -56,8 +56,8 @@ h3{
 
 .distribui{
     /* background-color: gray; */
-    width: 85%;
-    height: 70%;
+    width: 105%;
+    height: 82%;
     margin: 0 auto;
     display: flex;
     justify-content: space-around;
@@ -113,7 +113,7 @@ h3{
 
 .contador{
     position: absolute;
-left: 100px;
+left: 0px;
 top: 0;
 font-size: 44px;
 }
